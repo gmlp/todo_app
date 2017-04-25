@@ -56,7 +56,7 @@ class Stage(models.Model):
 
 
 class TodoTask(models.Model):
-    _name = 'todo.task'
+    _inherit = 'todo.task'
     stage_id = fields.Many2one('todo.task.stage', 'Stage')
     tag_ids = fields.Many2many('todo.task.tag', string='Tags')
     refers_to = fields.Reference(referenceable_models,'Refers to')
@@ -94,3 +94,13 @@ class TodoTask(models.Model):
         for todo in self:
             if len(todo.name) < 5:
                 raise ValidationError('Must have 5 chars!')
+
+    def compute_user_todo_count(self):
+        for task in self:
+            task.user_todo_count = task.search_count(
+                [('user_id','=',task.user_id.id)]
+            )
+
+    user_todo_count = fields.Integer(
+        'User To-Do Count',
+        compute='compute_user_todo_count')
