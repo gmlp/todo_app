@@ -6,5 +6,6 @@
     'data': [
         'views/todo_view.xml',
         'views/todo_menu.xml',
+        'views/todo_wizard_view.xml',
     ]
 }

@@ -60,6 +60,7 @@ class TodoTask(models.Model):
     stage_id = fields.Many2one('todo.task.stage', 'Stage')
     tag_ids = fields.Many2many('todo.task.tag', string='Tags')
     refers_to = fields.Reference(referenceable_models,'Refers to')
+    effort_estimate = fields.Integer('Effort Estimate')
 
     stage_fold = fields.Boolean(
         'Stage Folded?',
